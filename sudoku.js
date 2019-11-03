@@ -73,7 +73,7 @@ const getNextCell = board => {
  *
  * @param {array} board - The board to solve.
  * @param {boolean} [debug=false] - Whether or not to print the board.
- * @return {array} A solution to the board if there is one.
+ * @return {array|boolean} A solution to the board if there is one. Otherwise false.
  */
 const solve = (board, debug = false) => {
   if (!isLegalBoard(board)) return false;
