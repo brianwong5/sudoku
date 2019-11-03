@@ -8,12 +8,12 @@
 const checkDuplicates = (array, omit = 0) => {
   const seen = [];
   return array.some(item => {
-    if(item === omit) return false;
+    if (item === omit) return false;
     if (seen.includes(item)) return true;
     seen.push(item);
     return false;
   });
-}
+};
 
 /**
  * Determines if the board is legal. Each row, column and box can only
@@ -23,7 +23,7 @@ const checkDuplicates = (array, omit = 0) => {
  * @return {boolean} Whether the board is legal.
  */
 const isLegalBoard = board => {
-  const anyDuplicates = group => group.some(x => checkDuplicates(x))
+  const anyDuplicates = group => group.some(x => checkDuplicates(x));
   // check rows
   if (anyDuplicates(board)) return false;
 
@@ -39,7 +39,7 @@ const isLegalBoard = board => {
   );
   if (anyDuplicates(boxes)) return false;
   return true;
-}
+};
 
 /**
  * Converts board to printable format.
@@ -66,7 +66,7 @@ const toPrintable = board => board.reduce((acc, row, rowNum) => {
 const getNextCell = board => {
   const index = board.flat().findIndex(x => x === 0);
   return index >= 0 ? { x: index % 9, y: Math.floor(index / 9)} : null;
-}
+};
 
 /**
  * Recursively solves a sudoku board via brute force.
@@ -86,7 +86,7 @@ const solve = (board, debug = false) => {
     const result = solve(boardCopy, debug);
     if (result) return result;
   }
-}
+};
 
 module.exports = {
   checkDuplicates,
@@ -94,4 +94,4 @@ module.exports = {
   toPrintable,
   getNextCell,
   solve
-}
+};
