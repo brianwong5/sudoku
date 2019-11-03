@@ -33,7 +33,7 @@ const isLegalBoard = board => {
 
   // check boxes
   const getBoxIndex = (i, j) => Math.floor(j / 3) + Math.floor(i / 3) * 3;
-  const boxes = board.map(x => []);
+  const boxes = board.map(() => []);
   board.forEach((row, i) =>
     row.forEach((x, j) => boxes[getBoxIndex(i, j)].push(board[i][j]))
   );
