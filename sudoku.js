@@ -2,7 +2,7 @@
  * Check if an array contains any duplicates.
  *
  * @param {array} array - The array to check.
- * @param {*} [omit=0] - Item to skip if its in the array.
+ * @param {*} [omit=0] - Item to skip if it's in the array.
  * @return {boolean} Whether array contains any duplicates.
  */
 const checkDuplicates = (array, omit = 0) => {
@@ -72,7 +72,7 @@ const getNextCell = board => {
  * Recursively solves a sudoku board via brute force.
  *
  * @param {array} board - The board to solve.
- * @param {boolean} [debug = false] - Whether or not to print the board.
+ * @param {boolean} [debug=false] - Whether or not to print the board.
  * @return {array} A solution to the board if there is one.
  */
 const solve = (board, debug = false) => {
