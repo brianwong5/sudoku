@@ -1,4 +1,9 @@
 /**
+ * Sudoku solver.
+ * @module sudoku
+ */
+
+/**
  * Check if an array contains any duplicates.
  *
  * @param {array} array - The array to check.
@@ -31,8 +36,7 @@ const isLegalBoard = board => {
   const getBoxIndex = (i, j) => Math.floor(j / 3) + Math.floor(i / 3) * 3;
   const boxes = board.map(() => []);
   board.forEach((x, i) => x.forEach((x, j) => boxes[getBoxIndex(i, j)].push(x)));
-  if (anyDuplicates(boxes)) return false;
-  return true;
+  return !anyDuplicates(boxes);
 };
 
 /**
@@ -41,10 +45,12 @@ const isLegalBoard = board => {
  * @param {array} board - The board to convert.
  * @return {string} Board in ascii.
  */
-const toPrintable = board => board.reduce((acc, row, rowNum) =>
-  acc + (rowNum && !(rowNum % 3) ? "---+---+---\n" : "") +
-  row.reduce((acc, x, i) => acc + (i && !(i % 3) ? "|" : "") + (x ? x : " "), "") +
-  "\n", "");
+const toPrintable = board => board
+  ? board.reduce((acc, row, rowNum) =>
+    acc + (rowNum && !(rowNum % 3) ? "---+---+---\n" : "") +
+    row.reduce((acc, x, i) => acc + (i && !(i % 3) ? "|" : "") + (x ? x : " "), "") +
+    "\n", "")
+  : "Invalid board";
 
 /**
  * Gets the next empty cell in the board. Ordering is left to right, top to bottom.
