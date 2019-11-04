@@ -5,15 +5,10 @@
  * @param {*} [omit=0] - Item to skip if it's in the array.
  * @return {boolean} Whether array contains any duplicates.
  */
-const checkDuplicates = (array, omit = 0) => {
-  const seen = [];
-  return array.some(item => {
-    if (item === omit) return false;
-    if (seen.includes(item)) return true;
-    seen.push(item);
-    return false;
-  });
-};
+const checkDuplicates = (array, omit = 0) =>
+  array
+    .filter(x => x !== omit)
+    .some((x, i, arr) => arr.indexOf(x) === i ? false : true);
 
 /**
  * Determines if the board is legal. Each row, column and box can only
@@ -24,6 +19,7 @@ const checkDuplicates = (array, omit = 0) => {
  */
 const isLegalBoard = board => {
   const anyDuplicates = group => group.some(x => checkDuplicates(x));
+
   // check rows
   if (anyDuplicates(board)) return false;
 
@@ -34,9 +30,7 @@ const isLegalBoard = board => {
   // check boxes
   const getBoxIndex = (i, j) => Math.floor(j / 3) + Math.floor(i / 3) * 3;
   const boxes = board.map(() => []);
-  board.forEach((row, i) =>
-    row.forEach((x, j) => boxes[getBoxIndex(i, j)].push(board[i][j]))
-  );
+  board.forEach((x, i) => x.forEach((x, j) => boxes[getBoxIndex(i, j)].push(x)));
   if (anyDuplicates(boxes)) return false;
   return true;
 };
@@ -47,15 +41,10 @@ const isLegalBoard = board => {
  * @param {array} board - The board to convert.
  * @return {string} Board in ascii.
  */
-const toPrintable = board => board.reduce((acc, row, rowNum) => {
-  if (rowNum && rowNum % 3 == 0) acc += "---+---+---\n";
-  row.forEach((x, i) => {
-    if (i && i % 3 == 0) acc += "|";
-    acc += x ? x : " ";
-  });
-  acc += "\n";
-  return acc;
-}, "");
+const toPrintable = board => board.reduce((acc, row, rowNum) =>
+  acc + (rowNum && !(rowNum % 3) ? "---+---+---\n" : "") +
+  row.reduce((acc, x, i) => acc + (i && !(i % 3) ? "|" : "") + (x ? x : " "), "") +
+  "\n", "");
 
 /**
  * Gets the next empty cell in the board. Ordering is left to right, top to bottom.
