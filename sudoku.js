@@ -76,10 +76,10 @@ const solve = (board, debug = false) => {
   const nextCell = getNextCell(board);
   if (!nextCell) return board;
   for (let i = 1; i < 10; ++i) {
-    const boardCopy = JSON.parse(JSON.stringify(board));
-    boardCopy[nextCell.y][nextCell.x] = i;
-    const result = solve(boardCopy, debug);
+    board[nextCell.y][nextCell.x] = i;
+    const result = solve(board, debug);
     if (result) return result;
+    board[nextCell.y][nextCell.x] = 0;
   }
 };
 
